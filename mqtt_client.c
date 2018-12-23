@@ -5,8 +5,12 @@
 #include "mqtt_msg.h"
 #include "transport.h"
 #include "transport_tcp.h"
+#if MQTT_ENABLE_SSL
 #include "transport_ssl.h"
+#endif
+#if MQTT_ENABLE_WS || MQTT_ENABLE_WSS
 #include "transport_ws.h"
+#endif
 #include "platform.h"
 #include "mqtt_outbox.h"
 
@@ -405,6 +409,7 @@ esp_err_t esp_mqtt_client_set_uri(esp_mqtt_client_handle_t client, const char *u
     if (client->config->path == NULL) {
         client->config->path = create_string(uri + puri.field_data[UF_PATH].off, puri.field_data[UF_PATH].len);
     }
+#if MQTT_ENABLE_WS || MQTT_ENABLE_WSS
     if (client->config->path) {
         transport_handle_t trans = transport_list_get_transport(client->transport_list, "ws");
         if (trans) {
@@ -415,6 +420,7 @@ esp_err_t esp_mqtt_client_set_uri(esp_mqtt_client_handle_t client, const char *u
             transport_ws_set_path(trans, client->config->path);
         }
     }
+#endif
 
     if (puri.field_data[UF_PORT].len) {
         client->config->port = strtol((const char*)(uri + puri.field_data[UF_PORT].off), NULL, 10);
