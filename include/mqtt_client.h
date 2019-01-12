@@ -75,7 +75,8 @@ typedef struct {
     void *user_context;
     int task_prio;
     int task_stack;
-    int buffer_size;
+    int in_buffer_size;
+    int out_buffer_size;
     const char *cert_pem;
     const char *client_cert_pem;
     const char *client_key_pem;

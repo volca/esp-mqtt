@@ -64,12 +64,19 @@ config MQTT_WSS_DEFAULT_PORT
     help
         Default MQTT over Websocket Secure port
 
-config MQTT_BUFFER_SIZE
-    int "Default MQTT Buffer Size"
+config MQTT_IN_BUFFER_SIZE
+    int "Default MQTT In Buffer Size"
     default 1024
     depends on MQTT_USE_CUSTOM_CONFIG
     help
-        This buffer size using for both transmit and receive
+        This buffer size using for receive
+
+config MQTT_OUT_BUFFER_SIZE
+    int "Default MQTT Out Buffer Size"
+    default 1024
+    depends on MQTT_USE_CUSTOM_CONFIG
+    help
+        This buffer size using for transmit
 
 config MQTT_TASK_STACK_SIZE
     int "MQTT task stack size"
