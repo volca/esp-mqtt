@@ -64,6 +64,13 @@ config MQTT_WSS_DEFAULT_PORT
     help
         Default MQTT over Websocket Secure port
 
+config MQTT_RECONNECT_TIMEOUT
+    int "Default MQTT reconnect timeout in second"
+    default 10
+    depends on MQTT_USE_CUSTOM_CONFIG
+    help
+        Default reconnect timeout in second
+
 config MQTT_IN_BUFFER_SIZE
     int "Default MQTT In Buffer Size"
     default 1024
