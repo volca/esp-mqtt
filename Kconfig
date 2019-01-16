@@ -71,6 +71,13 @@ config MQTT_RECONNECT_TIMEOUT
     help
         Default reconnect timeout in second
 
+config MQTT_NETWORK_TIMEOUT
+    int "Default MQTT network timeout in second"
+    default 10
+    depends on MQTT_USE_CUSTOM_CONFIG
+    help
+        Default network timeout in second
+
 config MQTT_IN_BUFFER_SIZE
     int "Default MQTT In Buffer Size"
     default 1024
