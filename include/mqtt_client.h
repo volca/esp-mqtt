@@ -72,6 +72,7 @@ typedef struct {
     int disable_clean_session;
     int keepalive;
     bool disable_auto_reconnect;
+    bool publish_only;
     void *user_context;
     int task_prio;
     int task_stack;

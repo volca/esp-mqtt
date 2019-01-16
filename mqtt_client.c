@@ -72,6 +72,7 @@ struct esp_mqtt_client {
     esp_mqtt_event_t event;
     bool run;
     bool wait_for_ping_resp;
+    bool publish_only;
     outbox_handle_t outbox;
     EventGroupHandle_t status_bits;
 };
@@ -161,6 +162,8 @@ static esp_err_t esp_mqtt_set_config(esp_mqtt_client_handle_t client, const esp_
     if (client->connect_info.keepalive == 0) {
         client->connect_info.keepalive = MQTT_KEEPALIVE_TICK;
     }
+
+    client->publish_only = config->publish_only;
     cfg->network_timeout_ms = MQTT_NETWORK_TIMEOUT_MS;
     cfg->user_context = config->user_context;
     cfg->event_handle = config->event_handle;

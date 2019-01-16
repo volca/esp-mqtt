@@ -34,3 +34,4 @@
 build
 examples/**/build
 examples/**/sdkconfig*
+*.swp
