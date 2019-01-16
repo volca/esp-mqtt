@@ -714,13 +714,16 @@ static void esp_mqtt_task(void *pv)
 
                 break;
             case MQTT_STATE_CONNECTED:
+                if (client->publish_only) {
+                    break;
+                }
+
                 // receive and process data
                 if (mqtt_process_receive(client) == ESP_FAIL) {
                     esp_mqtt_abort_connection(client);
                     break;
                 }
 
-                /*
                 if (platform_tick_get_ms() - client->keepalive_tick > client->connect_info.keepalive * 1000 / 2) {
                     //No ping resp from last ping => Disconnected
                 	if(client->wait_for_ping_resp){
@@ -738,7 +741,6 @@ static void esp_mqtt_task(void *pv)
                     }
                 	ESP_LOGD(TAG, "PING sent");
                 }
-                */
 
                 //Delete mesaage after 30 senconds
                 outbox_delete_expired(client->outbox, platform_tick_get_ms(), OUTBOX_EXPIRED_TIMEOUT_MS);
