@@ -140,6 +140,11 @@ static esp_err_t esp_mqtt_set_config(esp_mqtt_client_handle_t client, const esp_
         ESP_MEM_CHECK(TAG, client->connect_info.will_topic, goto _mqtt_set_config_failed);
     }
 
+    client->wait_timeout_ms = MQTT_RECONNECT_TIMEOUT_MS;
+    if (config->reconnect_timeout) {
+        client->wait_timeout_ms = config->reconnect_timeout * 1000;
+    }
+
     if (config->lwt_msg_len) {
         client->connect_info.will_message = malloc(config->lwt_msg_len);
         ESP_MEM_CHECK(TAG, client->connect_info.will_message, goto _mqtt_set_config_failed);
@@ -165,6 +170,9 @@ static esp_err_t esp_mqtt_set_config(esp_mqtt_client_handle_t client, const esp_
 
     client->publish_only = config->publish_only;
     cfg->network_timeout_ms = MQTT_NETWORK_TIMEOUT_MS;
+    if (config->network_timeout) {
+        cfg->network_timeout_ms = config->network_timeout * 1000;
+    }
     cfg->user_context = config->user_context;
     cfg->event_handle = config->event_handle;
     cfg->auto_reconnect = true;

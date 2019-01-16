@@ -71,6 +71,8 @@ typedef struct {
     int lwt_msg_len;
     int disable_clean_session;
     int keepalive;
+    int network_timeout;
+    int reconnect_timeout;
     bool disable_auto_reconnect;
     // For application with publish QoS=0 only
     bool publish_only;
