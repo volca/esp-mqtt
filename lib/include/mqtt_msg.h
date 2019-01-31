@@ -73,6 +73,8 @@ typedef struct mqtt_message
     uint8_t* data;
     uint32_t length;
 
+    uint8_t* data_ext; 
+    uint32_t length_ext;
 } mqtt_message_t;
 
 typedef struct mqtt_connection

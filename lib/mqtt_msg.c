@@ -367,7 +367,11 @@ mqtt_message_t* mqtt_msg_publish(mqtt_connection_t* connection, const char* topi
         return fail_message(connection);
 
     if (append_string(connection, topic, strlen(topic)) < 0)
-        return fail_message(connection);
+       return fail_message(connection);
+
+    // Use the data pointer instead and not copy it
+    connection->message.length_ext = data_length;
+    connection->message.data_ext = (uint8_t *)data;
 
     if (qos > 0)
     {
@@ -377,9 +381,6 @@ mqtt_message_t* mqtt_msg_publish(mqtt_connection_t* connection, const char* topi
     else
         *message_id = 0;
 
-    if (connection->message.length + data_length > connection->buffer_length)
-        return fail_message(connection);
-    memcpy(connection->buffer + connection->message.length, data, data_length);
     connection->message.length += data_length;
 
     return fini_message(connection, MQTT_MSG_TYPE_PUBLISH, 0, qos, retain);
