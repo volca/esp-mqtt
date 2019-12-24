@@ -1,7 +1,7 @@
 #include "mqtt_outbox.h"
 #include <stdlib.h>
 #include <string.h>
-#include "rom/queue.h"
+#include "sys/queue.h"
 #include "esp_log.h"
 
 static const char *TAG = "OUTBOX";

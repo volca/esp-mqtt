@@ -1,8 +1,7 @@
-set(COMPONENT_ADD_INCLUDEDIRS "include")
-set(COMPONENT_PRIV_INCLUDEDIRS "lib/include")
-set(COMPONENT_SRCDIRS ". lib")
-
-set(COMPONENT_REQUIRES lwip nghttp mbedtls)
-
-register_component()
-
+idf_component_register(SRCS "mqtt_client.c"
+                            "lib/mqtt_msg.c"
+                            "lib/mqtt_outbox.c"
+                            "lib/platform_esp32_idf.c"
+                            INCLUDE_DIRS include
+                            PRIV_INCLUDE_DIRS "lib/include"
+                            REQUIRES lwip nghttp mbedtls tcp_transport)
